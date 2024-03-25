@@ -6,6 +6,7 @@ on:
 jobs:
   pages:
     runs-on: ubuntu-latest
+    environment: github-pages
     permissions:
       contents: write
     steps:
@@ -30,6 +31,10 @@ jobs:
         run: npm install
       - name: Build
         working-directory: ./algrtm
+        env:
+          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.EMAILJS_TEMPLATE_ID }}
+          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.EMAILJS_SERVICE_ID }}
+          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
         run: npm run build
       - name: Create CNAME
         working-directory: ./algrtm
